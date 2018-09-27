@@ -36,6 +36,7 @@ struct TokenType {
 int Get_FSM_Col(char currentChar);
 string GetLexemeName(int lexeme);
 vector<TokenType> Lexer(string text);
+bool isKeyword(string token);
 
 
 //							   string,    separator,  space,   operator,  real
@@ -44,8 +45,13 @@ int stateTable[][6] = { {0,    STRING,    SEPARATOR,  SPACE,   OPERATOR,  REAL},
 				   {SEPARATOR, REJECT,    REJECT,     REJECT,  REJECT,    REJECT},
 				   {SPACE,     REJECT,    REJECT,     REJECT,  REJECT,    REJECT},
 				   {OPERATOR,  REJECT,    REJECT,     REJECT,  REJECT,    REJECT},
-				   {REAL,      REJECT,    REAL,     REJECT,  REJECT,      REAL } };
+				   {REAL,      REJECT,    REAL,       REJECT,  REJECT,      REAL } };
 
+//DICTIONARY
+const int DICSIZE = 10;
+string keywd[DICSIZE] = { "while", "get", "int", "put", "if", "else", "endif", "return", "print", "end" };
+
+int quoteCount = 0;
 
 int main() {
 	vector<TokenType>tokenVec;
@@ -69,12 +75,22 @@ int main() {
 		//Cheats the FSM and re-assigns 'strings' to pre defined lexemes
 		//maybe if i made the vector global i can do this in get_fsm_col...
 		for (unsigned j = 0; j < tokenVec.size(); j++) {
-			if (tokenVec[j].token == "while") {
+
+			if (isKeyword(tokenVec[j].token) == true) {
 				tokenVec[j].lexemeName = "KEYWORD";
+			}//send to find keyword, if not keyword then its an identifier, if not then its a string
+			
+			if (tokenVec[j].token[0] == 34) {
+				quoteCount++;
 			}
-			else if (tokenVec[j].token == "fahr" || tokenVec[j].token == "upper" || tokenVec[j].token == "a") {
-				tokenVec[j].lexemeName == "IDENTIFIER";
+			if (quoteCount == 1 || quoteCount == 2) {
+				tokenVec[j].lexemeName = "STRING";
+				if (quoteCount == 2) {
+					quoteCount = 0;
+				}
 			}
+			
+
 			cout << tokenVec[j].lexemeName << "\t\t" << tokenVec[j].token << endl;
 		}
 	}
@@ -136,13 +152,13 @@ int Get_FSM_Col(char currentChar) {
 	if (isspace(currentChar)) {
 		return SPACE;
 	}
-	else if (isalpha(currentChar)) {
+	else if (isalpha(currentChar) || value == 36) {
 		return STRING;
 	}
-	else if (value == 40 || value == 41 || value == 46) {
+	else if (value == 34 || value == 40 || value == 41 || value == 46 || value == 125 || value == 123 || value == 44 || value == 37) {
 		return SEPARATOR;
 	}
-	else if (value == 60 || value == 61) {
+	else if (value == 60 || value == 61 || value == 62 || value == 42 || value == 43 || value == 45 || value == 47) {
 		return OPERATOR;
 	}
 	else if (isdigit(currentChar)) {
@@ -156,8 +172,8 @@ int Get_FSM_Col(char currentChar) {
 //Converts the enumerated lexeme into a string then returns the string
 string GetLexemeName(int lexeme) {
 	switch (lexeme) {
-	case STRING:
-		return "STRING";
+	case STRING://changing this to identifier , will double for loop the vector and chars to find quotes for strings...
+		return "IDENTIFIER";
 		break;
 	case SEPARATOR:
 		return "SEPARATOR";
@@ -176,3 +192,37 @@ string GetLexemeName(int lexeme) {
 		break;
 	}
 }
+
+bool isKeyword(string token) {
+	for (int i = 0; i < DICSIZE; i++) {
+		if (token == keywd[i]) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/* ||| DICTIONARY OF KEYWORDS |||
+	function
+	int
+	get
+	while
+	if
+
+
+	if word is followed by $ or ends in a letter, word = IDENTIFIER
+	if possible, ignore ! and text btwn !
+
+	if (tokenVec[j].token == "fahr" || tokenVec[j].token == "upper" || tokenVec[j].token == "a") {
+	tokenVec[j].lexemeName = "IDENTIFIER";
+
+				if (lolCh == 34 ) {
+				cout << "\npoop!\n";
+				do {
+					tokenVec[k].lexemeName = "STRING";
+					//cout << tokenVec[j].lexemeName << "\t\t" << tokenVec[j].token << endl;
+					k++;
+				} while (tokenVec[k+1].token[0] != 34);
+			}
+	}
+*/
