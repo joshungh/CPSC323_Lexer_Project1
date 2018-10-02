@@ -2,7 +2,7 @@
     MEMBERS:
       Adam Weesner    - aweesner@csu.fullerton.edu
       Joshua Ungheanu - joshuaungheanu@csu.fullerton.edu
-      Derek Dorr      - dhdorr@gmail.com
+      Derek Dorr      - derekdorr@csu.fullerton.edu
       
     DOCUMENTS:
       Cover Page: https://docs.google.com/document/d/1ab3lSSjzotIYCib0advMwaA_5XWswRb_QZZ5ITNzfvg/edit?usp=sharing
