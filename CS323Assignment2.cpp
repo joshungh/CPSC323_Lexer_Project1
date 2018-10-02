@@ -45,7 +45,7 @@ int stateTable[][6] = { {0,    STRING,    SEPARATOR,  SPACE,   OPERATOR,  REAL},
 				   {SEPARATOR, REJECT,    REJECT,     REJECT,  REJECT,    REJECT},
 				   {SPACE,     REJECT,    REJECT,     REJECT,  REJECT,    REJECT},
 				   {OPERATOR,  REJECT,    REJECT,     REJECT,  REJECT,    REJECT},
-				   {REAL,      REJECT,    REAL,       REJECT,  REJECT,      REAL } };
+				   {REAL,      REJECT,    REJECT,     REJECT,  REJECT,    REAL } };
 
 //DICTIONARY
 const int DICSIZE = 10;
@@ -155,7 +155,7 @@ int Get_FSM_Col(char currentChar) {
 	else if (isalpha(currentChar) || value == 36) {
 		return STRING;
 	}
-	else if (value == 34 || value == 40 || value == 41 || value == 46 || value == 125 || value == 123 || value == 44 || value == 37 || value == 59) {
+	else if (value == 34 || value == 40 || value == 41 || value == 125 || value == 123 || value == 44 || value == 37 || value == 59 || value == 58 || value == 91 || value == 93 ) {
 		return SEPARATOR;
 	}
 	else if (value == 60 || value == 61 || value == 62 || value == 42 || value == 43 || value == 45 || value == 47) {
