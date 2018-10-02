@@ -1,0 +1,21 @@
+function calculator$ [num1:int, num2:int, op:string]
+{
+    if (op == "+") {
+        return num1 + num2; }
+    else (op == "-") {
+        return num1 - num2; }
+    else (op == "*") {
+        return num1 * num2; }
+    else (op == "/") {
+        return num1 / num2; }
+    endif
+}
+
+%%
+string op = "-"; ! Declarations !
+int num1 = 5;
+int num2 = 10;
+int result = 0;
+
+result = put calculator$ (num1, num2, op));
+put (result);

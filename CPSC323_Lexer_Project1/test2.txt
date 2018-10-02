@@ -1,0 +1,56 @@
+%%
+bool insert(int value, int intArray[], int & numberOfValidEnties, int size)  
+
+	if (numberOfValidEnties == 0)
+	{
+		intArray[0] = value;
+		numberOfValidEnties++;
+		return 1;
+	}
+	else
+	{
+		if (numberOfValidEnties == 1)
+		{
+				if (intArray[0] > value)
+				{
+					int temp = intArray[0];
+					intArray[0] = value;
+					intArray[1] = temp;
+					numberOfValidEnties++;
+
+					return 1;
+				}
+				else
+				{
+					intArray[1] = value;
+					numberOfValidEnties++;
+
+					return 1;
+				}
+		}
+		else
+		{
+			for (int i = 0; i < numberOfValidEnties; i++)
+			{
+				if (value <= intArray[i])
+				{
+					for (int j = numberOfValidEnties - 1; j >= i; j--)
+					{
+						intArray[j + 1] = intArray[j];
+					}
+					intArray[i] = value;
+					numberOfValidEnties++;
+					return 1;
+				}
+			}
+
+			intArray[numberOfValidEnties] = value;
+			numberOfValidEnties++;
+			return 1;
+		}
+	}
+	if (numberOfValidEnties == size)
+	{
+		return 0;
+	}
+}
