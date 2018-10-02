@@ -1,8 +1,8 @@
 //simple lexer assignment 
-//Derek Dorr
+//Derek Dorr, Jonathan Ungheanu, Adam Weesner
 //CPSC 323 Fall 2018
 //Shohrat Geldiyev
-//9/11/18
+//10/1/18
 
 /*****************************************************************************
 To use this program, you just need to put a text file in the project directory
@@ -155,7 +155,7 @@ int Get_FSM_Col(char currentChar) {
 	else if (isalpha(currentChar) || value == 36) {
 		return STRING;
 	}
-	else if (value == 34 || value == 40 || value == 41 || value == 46 || value == 125 || value == 123 || value == 44 || value == 37) {
+	else if (value == 34 || value == 40 || value == 41 || value == 46 || value == 125 || value == 123 || value == 44 || value == 37 || value == 59) {
 		return SEPARATOR;
 	}
 	else if (value == 60 || value == 61 || value == 62 || value == 42 || value == 43 || value == 45 || value == 47) {
@@ -201,28 +201,3 @@ bool isKeyword(string token) {
 	}
 	return false;
 }
-
-/* ||| DICTIONARY OF KEYWORDS |||
-	function
-	int
-	get
-	while
-	if
-
-
-	if word is followed by $ or ends in a letter, word = IDENTIFIER
-	if possible, ignore ! and text btwn !
-
-	if (tokenVec[j].token == "fahr" || tokenVec[j].token == "upper" || tokenVec[j].token == "a") {
-	tokenVec[j].lexemeName = "IDENTIFIER";
-
-				if (lolCh == 34 ) {
-				cout << "\npoop!\n";
-				do {
-					tokenVec[k].lexemeName = "STRING";
-					//cout << tokenVec[j].lexemeName << "\t\t" << tokenVec[j].token << endl;
-					k++;
-				} while (tokenVec[k+1].token[0] != 34);
-			}
-	}
-*/
